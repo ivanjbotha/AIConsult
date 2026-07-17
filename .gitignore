@@ -8,3 +8,8 @@ templates/report/*.html
 !.claude/skills/analyze-discovery-call/examples/README.md
 
 __pycache__/
+
+# Platform (Next.js)
+platform/node_modules/
+platform/.next/
+platform/next-env.d.ts
