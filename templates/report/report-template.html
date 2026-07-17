@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tools Assessment — {{CLIENT_NAME}}</title>
+<style>
+  :root {
+    --ink: #10202b;
+    --ink-soft: #43596a;
+    --paper: #f6f4ee;
+    --card: #ffffff;
+    --accent: #0e7a5f;
+    --accent-soft: #e3f2ec;
+    --gold: #c9962e;
+    --gold-soft: #faf3e2;
+    --line: #e2ddd2;
+    --danger: #b34a3d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #d9d5cb;
+    color: var(--ink);
+  }
+  .deck { display: flex; flex-direction: column; align-items: center; gap: 28px; padding: 28px 12px; }
+  .slide {
+    width: 1120px;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--paper);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(16,32,43,.18);
+    padding: 56px 64px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  @media print {
+    body { background: none; }
+    .deck { gap: 0; padding: 0; }
+    .slide { box-shadow: none; border-radius: 0; page-break-after: always; width: 100%; }
+  }
+  .kicker {
+    font-size: 13px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin-bottom: 10px;
+  }
+  h1 { font-size: 52px; line-height: 1.08; letter-spacing: -.01em; }
+  h2 { font-size: 34px; line-height: 1.1; margin-bottom: 22px; letter-spacing: -.01em; }
+  .sub { color: var(--ink-soft); font-size: 18px; line-height: 1.5; }
+  .footer {
+    position: absolute; bottom: 22px; left: 64px; right: 64px;
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--ink-soft); letter-spacing: .06em; text-transform: uppercase;
+  }
+
+  /* Title slide */
+  .title-slide { justify-content: center; }
+  .title-meta { display: flex; gap: 40px; margin-top: 44px; }
+  .title-meta div { border-left: 3px solid var(--accent); padding-left: 14px; }
+  .title-meta .label { font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--ink-soft); margin-bottom: 4px; }
+  .title-meta .value { font-size: 19px; font-weight: 600; }
+
+  /* Executive summary */
+  .exec-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; flex: 1; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 24px 26px;
+  }
+  .card h3 { font-size: 15px; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-soft); margin-bottom: 12px; }
+  .pain-list li { font-size: 19px; line-height: 1.45; margin: 0 0 10px 22px; }
+  .outcome { font-size: 20px; line-height: 1.5; font-weight: 500; }
+  .stat-stack { display: flex; flex-direction: column; gap: 20px; }
+  .big-stat { background: var(--accent); color: #fff; border-radius: 12px; padding: 24px 26px; }
+  .big-stat .num { font-size: 58px; font-weight: 700; line-height: 1; }
+  .big-stat .lbl { font-size: 15px; margin-top: 8px; opacity: .92; }
+  .focus-card { background: var(--gold-soft); border: 1px solid #ecd9ad; border-radius: 12px; padding: 20px 24px; }
+  .focus-card .focus { font-size: 26px; font-weight: 700; color: var(--gold); }
+  .focus-card .why { font-size: 15px; color: var(--ink-soft); margin-top: 6px; line-height: 1.45; }
+
+  /* Matrix */
+  .matrix-wrap { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; flex: 1; }
+  .quadrant { border-radius: 12px; padding: 18px 20px; border: 1px solid var(--line); background: var(--card); }
+  .quadrant h4 { font-size: 17px; margin-bottom: 8px; }
+  .quadrant p { font-size: 14px; color: var(--ink-soft); line-height: 1.4; margin-bottom: 10px; }
+  .quadrant ul li { font-size: 14px; line-height: 1.4; margin: 0 0 6px 18px; }
+  .q-quickwins { background: var(--accent-soft); border-color: #bcdccd; }
+  .q-quickwins h4 { color: var(--accent); }
+  .q-major { background: var(--gold-soft); border-color: #ecd9ad; }
+  .q-major h4 { color: var(--gold); }
+  .q-dim { opacity: .65; }
+  .axis-note { font-size: 13px; color: var(--ink-soft); margin-top: 12px; }
+
+  /* Quick wins summary */
+  .win-row {
+    display: grid; grid-template-columns: 1fr 44px 1fr; align-items: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 22px; margin-bottom: 12px;
+  }
+  .win-row .pain { font-size: 18px; }
+  .win-row .arrow { text-align: center; color: var(--accent); font-size: 22px; font-weight: 700; }
+  .win-row .tool { font-size: 18px; font-weight: 700; color: var(--accent); text-align: right; }
+
+  /* Recommendations */
+  .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-content: start; }
+  .rec-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 18px;
+  }
+  .rec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+  .rec-head .name { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .rec-head .lever { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); font-weight: 700; }
+  .rec-card .solves { font-size: 13.5px; line-height: 1.4; color: var(--ink-soft); margin-bottom: 8px; }
+  .rec-stats { display: flex; gap: 18px; font-size: 13px; flex-wrap: wrap; }
+  .rec-stats span b { color: var(--ink); }
+
+  /* Quick start plan */
+  .days { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; flex: 1; }
+  .day-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; }
+  .day-card .day-num { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .day-card .day-tool { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .day-card .day-action { font-size: 14px; line-height: 1.45; color: var(--ink-soft); flex: 1; }
+  .day-card .day-time { font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 10px; }
+  .day-card .day-benefit { font-size: 13px; line-height: 1.4; margin-top: 6px; padding-top: 8px; border-top: 1px dashed var(--line); }
+
+  /* Major projects */
+  .proj-card { background: var(--card); border-left: 5px solid var(--gold); border-radius: 10px; padding: 18px 24px; margin-bottom: 14px; }
+  .proj-card .p-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .proj-card .p-desc { font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+  .proj-card .p-teaser { font-size: 14px; font-weight: 600; color: var(--gold); margin-top: 8px; }
+
+  /* Financial impact */
+  .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex: 1; align-items: stretch; }
+  .roi-math { display: flex; flex-direction: column; gap: 12px; }
+  .roi-line { display: flex; justify-content: space-between; align-items: baseline; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 22px; }
+  .roi-line .l { font-size: 16px; color: var(--ink-soft); }
+  .roi-line .v { font-size: 22px; font-weight: 700; }
+  .roi-line.minus .v { color: var(--danger); }
+  .roi-total { background: var(--accent); color: #fff; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; }
+  .roi-total .lbl { font-size: 16px; letter-spacing: .08em; text-transform: uppercase; opacity: .9; }
+  .roi-total .num { font-size: 68px; font-weight: 800; line-height: 1.1; }
+  .roi-total .per { font-size: 18px; opacity: .92; }
+  .roi-note { font-size: 14px; color: var(--ink-soft); margin-top: 14px; line-height: 1.5; }
+
+  /* Next steps */
+  .steps li { font-size: 21px; line-height: 1.5; margin: 0 0 16px 26px; }
+  .cta { margin-top: auto; background: var(--accent-soft); border: 1px solid #bcdccd; border-radius: 12px; padding: 22px 26px; font-size: 18px; line-height: 1.5; }
+  .cta b { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 1. TITLE -->
+  <section class="slide title-slide">
+    <div class="kicker">AI Tools Assessment</div>
+    <h1>{{CLIENT_NAME}}</h1>
+    <p class="sub" style="margin-top:14px;">Your prescription for reclaiming {{HOURS_PER_WEEK}}+ hours every week — using tools that already exist.</p>
+    <div class="title-meta">
+      <div><div class="label">Date</div><div class="value">{{DATE}}</div></div>
+      <div><div class="label">Business Type</div><div class="value">{{BUSINESS_TYPE}}</div></div>
+      <div><div class="label">Primary Focus</div><div class="value">{{PRIMARY_FOCUS}}</div></div>
+      <div><div class="label">Prepared By</div><div class="value">{{PREPARED_BY}}</div></div>
+    </div>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>1 / 9</span></div>
+  </section>
+
+  <!-- 2. EXECUTIVE SUMMARY -->
+  <section class="slide">
+    <div class="kicker">Executive Summary</div>
+    <h2>What we found — and what you'll get back</h2>
+    <div class="exec-grid">
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="card" style="flex:1;">
+          <h3>Your Biggest Pain Points</h3>
+          <ul class="pain-list">{{PAIN_POINT_ITEMS}}</ul>
+        </div>
+        <div class="card">
+          <h3>The Outcome</h3>
+          <p class="outcome">{{MAIN_OUTCOME}}</p>
+        </div>
+      </div>
+      <div class="stat-stack">
+        <div class="big-stat">
+          <div class="num">{{HOURS_PER_WEEK}} hrs</div>
+          <div class="lbl">Reclaimed every week by implementing this report</div>
+        </div>
+        <div class="focus-card">
+          <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);margin-bottom:8px;">Primary Focus</h3>
+          <div class="focus">{{PRIMARY_FOCUS}}</div>
+          <div class="why">{{PRIMARY_FOCUS_DESCRIPTION}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>2 / 9</span></div>
+  </section>
+
+  <!-- 3. EFFORT VS IMPACT MATRIX -->
+  <section class="slide">
+    <div class="kicker">Our Framework</div>
+    <h2>Effort vs. Impact — where this report focuses</h2>
+    <div class="matrix-wrap">
+      <div class="quadrant q-quickwins">
+        <h4>Quick Wins — high impact, low effort</h4>
+        <p>This report's focus. Off-the-shelf tools: sign up, start, benefit.</p>
+        <ul>{{MATRIX_QUICKWIN_ITEMS}}</ul>
+      </div>
+      <div class="quadrant q-major">
+        <h4>Major Projects — high impact, high effort</h4>
+        <p>Move the needle but need a real build. Covered in "What Comes After."</p>
+        <ul>{{MATRIX_MAJOR_ITEMS}}</ul>
+      </div>
+      <div class="quadrant q-dim">
+        <h4>Fill-ins — low impact, low effort</h4>
+        <p>Nice-to-haves. Do them when idle; don't schedule around them.</p>
+      </div>
+      <div class="quadrant q-dim">
+        <h4>Thankless Tasks — low impact, high effort</h4>
+        <p>Avoid. Effort spent here never pays back.</p>
+      </div>
+    </div>
+    <p class="axis-note">Vertical axis: impact on your business. Horizontal axis: effort to implement.</p>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>3 / 9</span></div>
+  </section>
+
+  <!-- 4. QUICK WINS SUMMARY -->
+  <section class="slide">
+    <div class="kicker">The Prescription</div>
+    <h2>Your quick wins at a glance</h2>
+    <div style="flex:1;">{{QUICK_WIN_ROWS}}</div>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>4 / 9</span></div>
+  </section>
+
+  <!-- 5. RECOMMENDED SOLUTIONS -->
+  <section class="slide">
+    <div class="kicker">Deep Dive</div>
+    <h2>Recommended solutions</h2>
+    <div class="rec-grid" style="flex:1;">{{RECOMMENDATION_CARDS}}</div>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>5 / 9</span></div>
+  </section>
+
+  <!-- 6. 4-DAY QUICK START PLAN -->
+  <section class="slide">
+    <div class="kicker">No Overwhelm</div>
+    <h2>Your 4-day quick start plan — 10 minutes a day</h2>
+    <div class="days">{{QUICK_START_DAYS}}</div>
+    <p class="axis-note" style="margin-top:16px;">Follow these four days and you capture the vast majority of this report's benefit.</p>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>6 / 9</span></div>
+  </section>
+
+  <!-- 7. WHAT COMES AFTER QUICK WINS -->
+  <section class="slide">
+    <div class="kicker">Looking Ahead</div>
+    <h2>What comes after quick wins</h2>
+    <p class="sub" style="margin-bottom:20px;">These opportunities from our conversation are high impact but need a dedicated build — no off-the-shelf tool fixes them.</p>
+    <div style="flex:1;">{{MAJOR_PROJECT_CARDS}}</div>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>7 / 9</span></div>
+  </section>
+
+  <!-- 8. FINANCIAL IMPACT -->
+  <section class="slide">
+    <div class="kicker">The Math</div>
+    <h2>Your monthly net ROI</h2>
+    <div class="roi-grid">
+      <div class="roi-math">
+        <div class="roi-line"><span class="l">Hours returned per week</span><span class="v">{{HOURS_PER_WEEK}} hrs</span></div>
+        <div class="roi-line"><span class="l">Your hourly value</span><span class="v">${{HOURLY_RATE}}</span></div>
+        <div class="roi-line"><span class="l">Monthly time value returned</span><span class="v">${{MONTHLY_TIME_VALUE}}</span></div>
+        <div class="roi-line minus"><span class="l">Total monthly tool cost</span><span class="v">−${{MONTHLY_TOOL_COST}}</span></div>
+      </div>
+      <div class="roi-total">
+        <div class="lbl">Monthly Net ROI</div>
+        <div class="num">${{MONTHLY_NET_ROI}}</div>
+        <div class="per">every month, starting this month</div>
+      </div>
+    </div>
+    <p class="roi-note">Formula: weekly hours returned × your hourly value × 4.33 weeks, minus monthly tool costs. Your one-time assessment fee of ${{ASSESSMENT_FEE}} pays for itself in the first month.</p>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>8 / 9</span></div>
+  </section>
+
+  <!-- 9. NEXT STEPS -->
+  <section class="slide">
+    <div class="kicker">Next Steps</div>
+    <h2>What to do now</h2>
+    <ol class="steps">{{NEXT_STEP_ITEMS}}</ol>
+    <div class="cta">Questions on any recommendation — or want help implementing? <b>Bring it to your review call.</b> We'll walk through every tool together.</div>
+    <div class="footer"><span>{{PREPARED_BY}}</span><span>9 / 9</span></div>
+  </section>
+
+</div>
+</body>
+</html>

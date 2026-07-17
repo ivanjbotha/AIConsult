@@ -1,0 +1,10 @@
+# Real client data and generated reports are confidential — never commit them.
+templates/report/client-data.json
+templates/report/*.html
+!templates/report/report-template.html
+
+# Real client transcripts in the skill's examples dir stay local by default.
+.claude/skills/analyze-discovery-call/examples/*
+!.claude/skills/analyze-discovery-call/examples/README.md
+
+__pycache__/
