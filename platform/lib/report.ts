@@ -67,7 +67,7 @@ export const SAMPLE_REPORT: ReportData = {
     day: "numeric",
   }),
   prepared_by: "AIConsult",
-  assessment_fee: 999,
+  assessment_fee: 299,
   hourly_rate: 150,
   primary_focus: "Efficiency",
   primary_focus_description:

@@ -1,25 +1,33 @@
-import Link from "next/link";
+import { BOOKING_URL, ASSESSMENT_PRICE } from "../lib/config";
 
 export default function Landing() {
   return (
     <main>
       <section style={{ background: "var(--ink)", color: "#fff", padding: "84px 0 90px" }}>
         <div className="container" style={{ maxWidth: 860 }}>
-          <div className="kicker" style={{ color: "#7fd4bc" }}>AI Tools Assessment — $999</div>
+          <div className="kicker" style={{ color: "#7fd4bc" }}>AI Tools Assessment</div>
           <h1 style={{ color: "#fff" }}>
             Get 5–10 hours of your week back.
             <br />
             <span style={{ color: "#7fd4bc" }}>Guaranteed, or it&apos;s free.</span>
           </h1>
+          <div style={{ marginTop: 26, display: "flex", alignItems: "baseline", gap: 14 }}>
+            <span style={{ fontSize: 84, fontWeight: 800, lineHeight: 1, color: "#7fd4bc", letterSpacing: "-0.02em" }}>
+              ${ASSESSMENT_PRICE}
+            </span>
+            <span style={{ fontSize: 20, color: "#c3d2cd", fontWeight: 600 }}>
+              one-time · money back if we don&apos;t find you 5+ hours a week
+            </span>
+          </div>
           <p className="sub" style={{ color: "#c3d2cd", marginTop: 18, fontSize: 19, maxWidth: 640 }}>
             We sit down with you for 45 minutes, find your biggest time drains, and
             prescribe 3–7 off-the-shelf AI tools that fix them — like a doctor writing
             a prescription. If we can&apos;t find at least 5 hours a week, you pay nothing.
           </p>
           <div style={{ marginTop: 32, display: "flex", gap: 14 }}>
-            <Link href="/login" className="btn" style={{ fontSize: 16, padding: "13px 26px" }}>
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: 16, padding: "13px 26px" }}>
               Book your assessment
-            </Link>
+            </a>
             <a href="#how" className="btn secondary" style={{ fontSize: 16, padding: "13px 26px", borderColor: "#7fd4bc", color: "#7fd4bc" }}>
               How it works
             </a>
@@ -68,6 +76,31 @@ export default function Landing() {
             never heard of. <b>The best case?</b> You get a full workday back every week —
             and a partner for everything AI on your to-do list.
           </div>
+        </div>
+      </section>
+
+      <section id="book" style={{ padding: "0 0 80px" }}>
+        <div className="container">
+          <div className="kicker">Ready?</div>
+          <h2>Book your assessment call</h2>
+          <p className="sub" style={{ marginTop: 8, marginBottom: 22 }}>
+            Pick a time that suits you — the 45 minutes happens on a simple browser
+            call, nothing to install.
+          </p>
+          <div className="card" style={{ padding: 0, overflow: "hidden" }}>
+            <iframe
+              src={`${BOOKING_URL}?hide_gdpr_banner=1&primary_color=0e7a5f`}
+              title="Book your assessment"
+              style={{ width: "100%", height: 680, border: "none", display: "block" }}
+            />
+          </div>
+          <p style={{ fontSize: 14, color: "var(--ink-soft)", marginTop: 12 }}>
+            Calendar not loading?{" "}
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+              Open the booking page in a new tab
+            </a>
+            .
+          </p>
         </div>
       </section>
     </main>

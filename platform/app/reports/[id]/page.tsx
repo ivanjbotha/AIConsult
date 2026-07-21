@@ -225,7 +225,7 @@ export default function ReportPage() {
           </div>
           <p className="roi-note">
             Formula: weekly hours returned × your hourly value × 4.33 weeks, minus monthly
-            tool costs. Your one-time assessment fee of ${money(d.assessment_fee ?? 999)} pays
+            tool costs. Your one-time assessment fee of ${money(d.assessment_fee ?? 299)} pays
             for itself in the first month.
           </p>
           {footer(8)}
