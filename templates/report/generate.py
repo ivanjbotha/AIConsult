@@ -136,7 +136,7 @@ def main():
         "MONTHLY_TIME_VALUE": money(monthly_time_value),
         "MONTHLY_TOOL_COST": money(tool_cost),
         "MONTHLY_NET_ROI": money(net_roi),
-        "ASSESSMENT_FEE": money(data.get("assessment_fee", 999)),
+        "ASSESSMENT_FEE": money(data.get("assessment_fee", 299)),
     }
     replacements.update(build_blocks(data))
 

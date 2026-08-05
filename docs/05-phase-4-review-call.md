@@ -29,9 +29,9 @@ That question is the bridge to the [upsell menu](06-upsell-menu.md).
 A powerful way to get an on-the-fence prospect over the line (don't lead with
 it — use it when needed):
 
-> "How about I just credit the $999 you already paid me toward the
-> implementation? So instead of $5K, it's $4K — the assessment was basically
-> free."
+> "How about I just credit the $299 you already paid me toward the
+> implementation? So instead of $5K, it's $4,700 — the assessment was
+> basically free."
 
 Pro move: price the upsell $1,000 higher and credit the assessment regardless.
 You make the same money; the client psychologically feels like they got $1,000

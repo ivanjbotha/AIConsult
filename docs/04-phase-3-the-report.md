@@ -65,7 +65,7 @@ information.
 
    Average prescribed tool cost is ~$60/month for ~7 hours/week saved. Most
    owners' time is worth hundreds per hour, so the net ROI is always four
-   figures, sometimes five. Show them: "You paid me $999; you get $X back
+   figures, sometimes five. Show them: "You paid me $299; you get $X back
    every month."
 9. **Next Steps** — implement the 4-day quick start plan and book the review
    call.

@@ -1,8 +1,9 @@
 # The Upsell Menu
 
-$999 is just the door. Roughly half of assessment clients want implementation —
+$299 is just the door. Roughly half of assessment clients want implementation —
 and they're warm: it's far easier to pitch a $5,000 Claude-skills pack to
-someone who just paid you $1,000 than to cold traffic off a Facebook ad.
+someone who just paid you a few hundred dollars than to cold traffic off a
+Facebook ad.
 
 Six things to sell after the assessment:
 

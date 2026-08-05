@@ -12,7 +12,7 @@ where AI can help, they get 100% of their money back. The only thing the client
 has to lose is 45 minutes of their time. Best case, they get at least 5 hours a
 week back — the average client saves about 7.
 
-**Price: $999.**
+**Price: $299.**
 
 ## Why this works
 
@@ -58,7 +58,7 @@ the research phase (and the tool directories in
 4. **Review call** (30 min) — walk through the report, ask the three closing
    questions, and let the upsell come to you.
 
-## $999 is just the door
+## $299 is just the door
 
 Some people hear the price and think "that's it?" The assessment is a foot in
 the door — a tripwire offer. The lifetime value of an assessment client ends up
@@ -70,7 +70,7 @@ being $3K, $5K, $10K or more, because:
   pay you more.** That's what a good audit does.
 
 Once the system is solid, the assessment can even become a self-liquidating
-funnel: put $200 of each $999 into ads and you're getting paid to acquire
+funnel: put $60 of each $299 into ads and you're getting paid to acquire
 customers for your higher-ticket services.
 
 ## Make it yours

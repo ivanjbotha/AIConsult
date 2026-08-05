@@ -3,7 +3,7 @@
 A complete, ready-to-run toolkit for launching a productized AI consulting service:
 you meet a small business owner, spend 45 minutes finding their biggest time drains,
 and prescribe off-the-shelf AI tools that fix them — like a doctor writing a
-prescription. The assessment sells for **$999** and opens the door to implementation
+prescription. The assessment sells for **$299** and opens the door to implementation
 work worth thousands.
 
 > Based on the playbook Corey Ganon shared on Greg Isenberg's podcast.
@@ -16,7 +16,7 @@ work worth thousands.
 - **The guarantee:** if you can't find at least 5 hours/week of opportunity,
   100% money back. The client's only risk is 45 minutes of their time.
 - **Why it works:** you don't build anything. You don't code. You prescribe tools
-  that already exist. The $999 is a foot in the door — lifetime value of an
+  that already exist. The $299 is a foot in the door — lifetime value of an
   assessment client is $3K–$10K+ (about half want you to implement).
 
 ## The four phases
@@ -75,7 +75,7 @@ templates/
 
 ## The economics
 
-- Assessment: **$999** (15 sold in 2026 in this playbook's source; ~50% convert to implementation)
+- Assessment: **$299** (15 sold in 2026 in this playbook's source at the original $999 price point; price has since been lowered to $299 — see `platform/lib/config.ts`)
 - Average tools cost prescribed to a client: **~$60/month** for **~7 hours/week** saved —
   monthly net ROI is always four figures, often five
 - Upsells: $1,500 (automation build) → $3K–$3.5K (process redesign) → $8K (full implementation)

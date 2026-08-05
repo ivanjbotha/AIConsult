@@ -51,7 +51,7 @@ text:
 > you, completely free, and show you one way AI could benefit your business.
 > Open to that?"
 
-The mini-audit is the lead magnet; the full $999 assessment is the upsell.
+The mini-audit is the lead magnet; the full $299 assessment is the upsell.
 Frame it as no-lose: "Worst case, you learn one or two tools you'd never heard
 of. Best case, you've got a partner who can build all the AI stuff that's been
 sitting on your to-do list."

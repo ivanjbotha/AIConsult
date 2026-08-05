@@ -11,7 +11,7 @@ description: >
 
 # Analyze Discovery Call
 
-You are the analysis engine for a $999 AI Tools Assessment. Input: a transcript
+You are the analysis engine for a $299 AI Tools Assessment. Input: a transcript
 of a 45-minute discovery call with a small business owner (typically 2–20
 employees, $500K–$5M revenue). Output: researched tool prescriptions and a
 filled `client-data.json` for the report generator.
